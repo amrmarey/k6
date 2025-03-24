@@ -77,6 +77,31 @@ K6 automatically runs `loadtest.js`, sending results to InfluxDB for visualizati
 
 ---
 
+## 🔄 Changing Test URL
+
+To change the URL used for load testing:
+
+1. Open `scripts/loadtest.js`
+2. Update the URL in the script, for example:
+
+```javascript
+import http from 'k6/http';
+import { sleep } from 'k6';
+
+export default function () {
+  http.get('https://your-new-url.com');
+  sleep(1);
+}
+```
+
+3. Save changes and restart K6:
+
+```bash
+docker-compose restart k6
+```
+
+---
+
 ## 🛑 Stop Containers
 
 ```bash
