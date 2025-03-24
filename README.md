@@ -44,8 +44,8 @@ A ready-to-use Docker Compose setup for performance testing with **Grafana**, **
 ### 1. 🌀 Clone the Repository
 
 ```bash
-git clone <repository_url>
-cd <repository_directory>
+git clone https://github.com/amrmarey/k6.git
+cd k6
 ```
 
 ### 2. 📂 Directory Structure
