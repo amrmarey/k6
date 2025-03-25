@@ -21,9 +21,9 @@ A ready-to-use Docker Compose setup for performance testing with **Grafana**, **
   - [▶️ Quick Start](#️-quick-start)
     - [1. 🌀 Clone the Repository](#1--clone-the-repository)
     - [2. 📂 Directory Structure](#2--directory-structure)
-    - [3. 🚀 Launch Containers](#3--launch-containers)
-    - [4. 🌐 Access Services](#4--access-services)
-    - [5. 📉 Execute Load Tests](#5--execute-load-tests)
+    - [3. 📉 Configure Load Test](#3--configure-load-test)
+    - [4. 🚀 Launch Containers](#4--launch-containers)
+    - [5. 🌐 Access Services](#5--access-services)
   - [🔄 Changing Test URL](#-changing-test-url)
   - [🛑 Stop Containers](#-stop-containers)
   - [🖌️ Customization](#️-customization)
@@ -89,20 +89,30 @@ Ensure your structure matches:
     └── loadtest.js
 ```
 
-### 3. 🚀 Launch Containers
+### 3. 📉 Configure Load Test
+
+Edit the `scripts/loadtest.js` file to define your test logic:
+
+```javascript
+import http from 'k6/http';
+import { sleep } from 'k6';
+
+export default function () {
+  http.get('https://your-target-url.com');
+  sleep(1);
+}
+```
+
+### 4. 🚀 Launch Containers
 
 ```bash
 docker-compose up -d
 ```
 
-### 4. 🌐 Access Services
+### 5. 🌐 Access Services
 
 - **Grafana**: [http://localhost:3000](http://localhost:3000)
 - **InfluxDB**: [http://localhost:8086](http://localhost:8086)
-
-### 5. 📉 Execute Load Tests
-
-K6 automatically runs `loadtest.js`, sending results to InfluxDB for visualization in Grafana.
 
 ---
 
@@ -111,18 +121,7 @@ K6 automatically runs `loadtest.js`, sending results to InfluxDB for visualizati
 To change the load test URL:
 
 1. Open `scripts/loadtest.js`
-2. Modify the request URL:
-
-```javascript
-import http from 'k6/http';
-import { sleep } from 'k6';
-
-export default function () {
-  http.get('https://your-new-url.com');
-  sleep(1);
-}
-```
-
+2. Modify the request URL
 3. Restart the K6 container:
 
 ```bash
