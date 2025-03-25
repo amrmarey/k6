@@ -27,6 +27,7 @@ A ready-to-use Docker Compose setup for performance testing with **Grafana**, **
   - [🔄 Changing Test URL](#-changing-test-url)
   - [🛑 Stop Containers](#-stop-containers)
   - [🖌️ Customization](#️-customization)
+  - [🧭 Setting Up the Grafana Dashboard](#-setting-up-the-grafana-dashboard)
   - [📊 Visualizing Metrics with Grafana](#-visualizing-metrics-with-grafana)
   - [🙌 Contribution](#-contribution)
   - [📄 License](#-license)
@@ -144,13 +145,37 @@ You can modify the `loadtest.js` script to define different test scenarios, incl
 
 ---
 
+## 🧭 Setting Up the Grafana Dashboard
+
+1. **Login to Grafana** at [http://localhost:3000](http://localhost:3000) using:
+   - **Username**: `admin`
+   - **Password**: `admin`
+
+2. **Add InfluxDB as a Data Source**:
+   - Navigate to **Configuration → Data Sources**
+   - Click **Add data source** → Select **InfluxDB**
+   - Set the following:
+     - **URL**: `http://influxdb:8086`
+     - **Database**: `k6`
+     - **User/Password**: Leave blank
+     - Click **Save & Test**
+
+3. **Import a Dashboard**:
+   - Navigate to **+ → Import**
+   - Use the dashboard ID `2587` (K6 Official Dashboard), or upload your own JSON
+   - Select the InfluxDB data source you just added
+
+4. **View Real-Time Metrics** on your new dashboard
+
+---
+
 ## 📊 Visualizing Metrics with Grafana
 
-Log into Grafana using the default credentials. You can:
-
-- Add InfluxDB as a data source
-- Create dashboards to monitor metrics
-- Use community dashboards for quick setup
+Use your Grafana dashboard to analyze:
+- Request durations and trends
+- HTTP response codes
+- VUs (Virtual Users)
+- Error rates
 
 ---
 
